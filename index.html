@@ -1,6 +1,99 @@
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <meta http-equiv="refresh" content="0;url=../examples.html"><script type="text/javascript">
-                           window.location.href = "../examples.html"
-                        </script><title>Page Redirection</title></head><body><p>This page is now at <a href="../examples.html">a 
-                        new location</a>.</p></body></html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Switcher</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .top-bar {
+    background-color: #007bff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  .top-bar button {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .image-container,
+  .description-container {
+    flex: 1;
+    max-width: 45%;
+  }
+  .image-container img {
+    width: 100%;
+    height: auto;
+  }
+  .description-container {
+    padding-left: 20px;
+  }
+  .description {
+    margin-top: 0;
+  }
+  .description h2 {
+    color: #007bff;
+    margin-bottom: 5px;
+  }
+  .description ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <button onclick="switchToImage(1)">Switch to Image 1</button>
+  <button onclick="switchToImage(2)">Switch to Image 2</button>
+</div>
+
+<div class="container">
+  <div class="image-container">
+    <img id="image" src="image1.png" alt="Image 1">
+  </div>
+  <div class="description-container">
+    <div class="description">
+      <h2>Description 1</h2>
+      <ul>
+        <li>Subsection 1</li>
+        <li>Subsection 2</li>
+        <li>Subsection 3</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var images = ["image1.png", "image2.png"];
+  var descriptions = [
+    "<h2>Description 1</h2><ul><li>Subsection 1</li><li>Subsection 2</li><li>Subsection 3</li></ul>",
+    "<h2>Description 2</h2><ul><li>Subsection 1</li><li>Subsection 2</li><li>Subsection 3</li></ul>"
+  ];
+
+  function switchToImage(index) {
+    document.getElementById("image").src = images[index - 1];
+    document.querySelector(".description").innerHTML = descriptions[index - 1];
+  }
+</script>
+
+</body>
+</html>
