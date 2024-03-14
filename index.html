@@ -1,5 +1,8 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image Switcher</title>
 <style>
   body {
@@ -8,7 +11,6 @@
     padding: 0;
   }
   .top-bar {
-    background-color: #007bff;
     padding: 10px 0;
     text-align: center;
   }
@@ -27,6 +29,8 @@
   }
   .container {
     display: flex;
+    width: 60%; 
+    margin: auto;
     justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -35,61 +39,109 @@
   .image-container,
   .description-container {
     flex: 1;
-    max-width: 45%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
   }
   .image-container img {
     width: 100%;
     height: auto;
   }
-  .description-container {
-    padding-left: 20px;
-  }
-  .description {
-    margin-top: 0;
-  }
-  .description h2 {
+  .description h2,
+  .description h3 {
     color: #007bff;
-    margin-bottom: 5px;
+    font-size: 30px;
+    margin: 10px 0;
   }
   .description ul {
     list-style-type: disc;
     padding-left: 20px;
+    font-size: 20px;
   }
 </style>
 </head>
 <body>
 
 <div class="top-bar">
-  <button onclick="switchToImage(1)">Switch to Image 1</button>
-  <button onclick="switchToImage(2)">Switch to Image 2</button>
+  <button onclick="switchToImage(1)">Example1</button>
+  <button onclick="switchToImage(2)">Example2</button>
 </div>
 
-<div class="container">
+<div class="container" id="container1">
   <div class="image-container">
-    <img id="image" src="image1.png" alt="Image 1">
+    <img id="image1" src="image1.png" alt="Image 1">
+    <div class="description-container">
+      <div class="description">
+        <div class="description-content">
+          <h3>Data Abstraction</h3>
+          <ul>
+            <li>Airports (nominal), Departure hour (interval), Probability (ratio)</li>
+          </ul>
+          <h3>Visual Encoding/Idiom</h3>
+          <ul>
+            <li><strong style="font-weight: bold; color: green">Departure hour</strong>: position on vertical axis.</li>
+            <li><strong style="font-weight: bold; color: green">Airports</strong>: position on horizontal axis, properly reordered by probabilities to show the trend.</li>
+            <li><strong style="font-weight: bold; color: red">Probability</strong>: color from dark blue to bright yellow in continuous space, with limitations in low-level query actions. You can compare but can not <strong style="font-weight: bold;">identify</strong> the probability value.</li>
+          </ul>
+          <h3>Improvements</h3>
+          <ul>
+            <li>Divide the probability range and Discretize the color space, we can have a rough probability ranage value when referering to color.</li>
+            <li>Add specific probabilities number in each rect box for identifying action.</li>
+            <li>Give the most effective channel like position to the probabilities.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="description-container">
-    <div class="description">
-      <h2>Description 1</h2>
-      <ul>
-        <li>Subsection 1</li>
-        <li>Subsection 2</li>
-        <li>Subsection 3</li>
-      </ul>
+</div>
+
+<div class="container" id="container2" style="display: none;">
+  <div class="image-container">
+    <img id="image2" src="image2.png" alt="Image 2">
+    <div class="description-container">
+      <div class="description">
+        <div class="description-content">
+          <h3>Data Abstraction</h3>
+          <ul>
+            <li>Airports (nominal), Airline (nominal), Delay in Minutes (ratio), year (interval)</li>
+          </ul>
+          <h3>Visual Encoding/Idiom</h3>
+          <ul>
+            <li><strong style="font-weight: bold; color: green">Airports and Airline</strong>: position on horizontal and vertical axes. </li>
+            <li><strong style="font-weight: bold; color: orange">Delay in Minutes</strong>: Color in continuous spectrum.
+                <ul>
+                    <li>The delay minutes are explicitly displayed, easy for identify and compare.</li>
+                    <li>Violate the effectiveness of Salience: some cells of missing data are colored in white which are much salient than other cells. </li>
+                </ul>
+            </li>
+            <li><strong style="font-weight: bold; color: red">Year</strong>: 2D Spatial Position (two axes). 
+                <ul>
+                    <li>Channel Redundancy: The year can be represented on a 1-D axis, but it is situated within a 2-D coordinate system.</li>
+                </ul>
+            </li>
+          </ul>
+          <h3>Improvements</h3>
+          <ul>
+            <li>Use "nan" to represent cells of missing data, color them with black color to make them less salient. </li>
+            <li>Because year is of interval data scale, we can 1D axis to better model the trend.  </li>
+            <li>Or </li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  var images = ["image1.png", "image2.png"];
-  var descriptions = [
-    "<h2>Description 1</h2><ul><li>Subsection 1</li><li>Subsection 2</li><li>Subsection 3</li></ul>",
-    "<h2>Description 2</h2><ul><li>Subsection 1</li><li>Subsection 2</li><li>Subsection 3</li></ul>"
-  ];
-
   function switchToImage(index) {
-    document.getElementById("image").src = images[index - 1];
-    document.querySelector(".description").innerHTML = descriptions[index - 1];
+    if (index === 1) {
+      document.getElementById("container1").style.display = "block";
+      document.getElementById("container2").style.display = "none";
+    } else if (index === 2) {
+      document.getElementById("container1").style.display = "none";
+      document.getElementById("container2").style.display = "block";
+    }
   }
 </script>
 
